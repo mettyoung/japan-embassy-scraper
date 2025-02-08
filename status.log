@@ -1,0 +1,2 @@
+2025-02-08 16:00:01,552 - __main__ - INFO - Running script on $2025-02-08 16:00:01.552360
+2025-02-08 16:00:13,057 - __main__ - ERROR - Failed to send email: name 'TO_EMAIL' is not defined
