@@ -49,7 +49,7 @@ def send_email(subject, body):
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
             server.starttls()  # Use TLS for secure email communication
             server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            server.sendmail(EMAIL_ADDRESS, TO_EMAIL, msg.as_string())
+            server.sendmail(EMAIL_ADDRESS, EMAIL_ADDRESS, msg.as_string())
         logger.info("Email sent successfully.")
     except Exception as e:
         logger.error(f"Failed to send email: {e}")
