@@ -2,7 +2,6 @@ import logging
 import logging.handlers
 import os
 from requests_html import HTMLSession
-import requests
 import smtplib
 from email.mime.text import MIMEText
 import time
@@ -22,22 +21,10 @@ formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(messag
 logger_file_handler.setFormatter(formatter)
 logger.addHandler(logger_file_handler)
 
-if __name__ == "__main__":
-  try:
-    EMAIL_ADDRESS = os.environ["EMAIL"]
-  except KeyError:
-    logger.info("EMAIL not available!")
-    raise
-
-  try:
-    EMAIL_PASSWORD = os.environ["PASSWORD"]
-  except KeyError:
-    logger.info("PASSWORD not available!")
-    raise
 
 # Handle graceful shutdown
 def handle_exit_signal(signum, frame):
-    logger.info(f"\nReceived signal {signum}, exiting gracefully...")
+    logger.info(f"Received signal {signum}, exiting gracefully...")
     sys.exit(0)
 
 # Register the signal handlers
@@ -72,7 +59,7 @@ def check_appointments():
   now = datetime.now()
   current_hour = now.time().hour
   current_minute = now.time().minute
-  logger.info("Running script on", now)
+  logger.info(f"Running script on ${now}")
 
   # Create an HTML session
   session = HTMLSession()
@@ -103,6 +90,19 @@ def check_appointments():
   # Close the session
   session.close()
 
-check_appointments()
+if __name__ == "__main__":
+  try:
+    EMAIL_ADDRESS = os.environ["EMAIL"]
+  except KeyError:
+    logger.info("EMAIL not available!")
+    raise
+
+  try:
+    EMAIL_PASSWORD = os.environ["PASSWORD"]
+  except KeyError:
+    logger.info("PASSWORD not available!")
+    raise
+  
+  check_appointments()
 
 
