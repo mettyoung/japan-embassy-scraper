@@ -83,8 +83,8 @@ def check_appointments():
   else:
       output.append("3日日予定リスト not found")
 
-  # Send heartbeat every 4 hours
-  send_heartbeat = current_hour %4 == 0 and current_minute == 0
+  # Send heartbeat every hour
+  send_heartbeat = current_minute == 0
 
   if content.find("No events to display") == -1:
     output.append("Please visit " + URL) 
