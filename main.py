@@ -59,7 +59,6 @@ def check_appointments():
   now = datetime.now()
   current_hour = now.time().hour
   current_minute = now.time().minute
-  logger.info(f"Running script on {now}")
 
   # Create an HTML session
   session = HTMLSession()
@@ -72,21 +71,28 @@ def check_appointments():
   response.html.render(sleep=3)
   content = response.html.text
 
-  heartbeat_email_content = ""
+  output = []
   if content.find("2025年2月") > -1:
-    heartbeat_email_content += "2025年2月 found\r\n"
+      output.append("2025年2月 found")
+  else:
+      output.append("2025年2月 not found")
+
 
   if content.find("3日日予定リスト") > -1:
-    heartbeat_email_content += "3日日予定リスト found\r\n"
+      output.append("3日日予定リスト found")
+  else:
+      output.append("3日日予定リスト not found")
 
   # Send heartbeat every 4 hours
   send_heartbeat = current_hour %4 == 0 and current_minute == 0
 
   if content.find("No events to display") == -1:
-    send_email("Slots available!", "Please visit " + URL)
+    output.append("Please visit " + URL) 
+    send_email("Slots available!", "\r\n".join(output))
   elif send_heartbeat:
-    send_email("Script is running...\r\n", heartbeat_email_content)
+    send_email("Heartbeat email", "\r\n".join(output))
 
+  logger.info(", ".join(output))
   # Close the session
   session.close()
 
