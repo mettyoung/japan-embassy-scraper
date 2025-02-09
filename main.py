@@ -89,7 +89,10 @@ def check_appointments():
   if content.find("No events to display") == -1:
     output.append("Please visit " + URL) 
     send_email("Slots available!", "\r\n".join(output))
-  elif send_heartbeat:
+  else:
+    output.append("No slots available!") 
+
+  if send_heartbeat:
     send_email("Heartbeat email", "\r\n".join(output))
 
   logger.info(", ".join(output))
