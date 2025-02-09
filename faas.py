@@ -93,7 +93,7 @@ def check_appointments():
 def commit_and_push_changes():
   try:
     os.system('git config --local user.email "system@mettyoung.com"')
-    os.system('git config --local user.name "Amazon Lambda"')
+    os.system('git config --local user.name "Alibaba cloud"')
     os.system('git add -A')
     os.system('git diff-index --quiet HEAD || git commit -a -m "updated faas logs" --allow-empty')
     os.system('git pull origin main --rebase')
