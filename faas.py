@@ -96,6 +96,7 @@ def check_appointments():
       os.system('git config --local user.name "Amazon Lambda"')
       os.system('git add -A')
       os.system('git diff-index --quiet HEAD || git commit -a -m "updated faas logs" --allow-empty')
+      os.system('git pull origin main --rebase')
       os.system('git push origin main')
     except Exception as e:
       pass
