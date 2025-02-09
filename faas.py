@@ -59,7 +59,7 @@ def check_appointments():
   now = datetime.now()
   current_hour = now.time().hour
   current_minute = now.time().minute
-  logger.info(f"Running script on ${now}")
+  logger.info(f"Running script on {now}")
 
   # Create an HTML session
   session = HTMLSession()
