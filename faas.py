@@ -90,16 +90,16 @@ def check_appointments():
   # Close the session
   session.close()
 
-  def commit_and_push_changes():
-    try:
-      os.system('git config --local user.email "system@mettyoung.com"')
-      os.system('git config --local user.name "Amazon Lambda"')
-      os.system('git add -A')
-      os.system('git diff-index --quiet HEAD || git commit -a -m "updated faas logs" --allow-empty')
-      os.system('git pull origin main --rebase')
-      os.system('git push origin main')
-    except Exception as e:
-      pass
+def commit_and_push_changes():
+  try:
+    os.system('git config --local user.email "system@mettyoung.com"')
+    os.system('git config --local user.name "Amazon Lambda"')
+    os.system('git add -A')
+    os.system('git diff-index --quiet HEAD || git commit -a -m "updated faas logs" --allow-empty')
+    os.system('git pull origin main --rebase')
+    os.system('git push origin main')
+  except Exception as e:
+    pass
 
 if __name__ == "__main__":
   try:
