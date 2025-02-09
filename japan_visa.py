@@ -71,7 +71,7 @@ def check_appointments():
   session = HTMLSession()
 
   # Make a GET request to the target URL
-  response = session.get(URL, verify=False)
+  response = session.get(URL, verify=PEM)
 
   # Render the JavaScript
   # Adjust sleep time as necessary

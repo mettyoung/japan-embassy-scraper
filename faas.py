@@ -12,7 +12,7 @@ import sys
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 logger_file_handler = logging.handlers.RotatingFileHandler(
-    "status.log",
+    "faas-status.log",
     maxBytes=1024 * 1024,
     backupCount=1,
     encoding="utf8",
@@ -59,7 +59,7 @@ def check_appointments():
   now = datetime.now()
   current_hour = now.time().hour
   current_minute = now.time().minute
-  logger.info(f"Running script on {now}")
+  logger.info(f"Running script on ${now}")
 
   # Create an HTML session
   session = HTMLSession()
@@ -90,6 +90,16 @@ def check_appointments():
   # Close the session
   session.close()
 
+  def commit_and_push_changes():
+    try:
+      os.system('git config --local user.email "system@mettyoung.com"')
+      os.system('git config --local user.name "Amazon Lambda"')
+      os.system('git add -A')
+      os.system('git diff-index --quiet HEAD || git commit -a -m "updated faas logs" --allow-empty')
+      os.system('git push origin main')
+    except Exception as e:
+      pass
+
 if __name__ == "__main__":
   try:
     EMAIL_ADDRESS = os.environ["EMAIL"]
@@ -104,5 +114,6 @@ if __name__ == "__main__":
     raise
   
   check_appointments()
+  commit_and_push_changes()
 
 
